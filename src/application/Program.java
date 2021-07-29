@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import model.entities.Reservation;
 
+
 public class Program {
 
 	public static void main(String[] args) throws ParseException {
@@ -33,24 +34,19 @@ public class Program {
 			checkin = sdf.parse(sc.next()); //converter o string em date
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkout = sdf.parse(sc.next());
-			
-			Date now = new Date();
-			if (checkin.before(now) || checkout.before(now)) {
-				System.out.println("Error in reservation: Check-out date must be after check-in date");
-			}
-			else if (!checkout.after(checkin)) {
-				System.out.println("Error in reservation: Check-out date must be after check-in date");
+		
+			String error = reservation.updateDates(checkin, checkout);
+			if (error != null) {
+				System.out.println("Error in reservation: " + error);
 			}
 			else {
-			
-				reservation.updateDates(checkin, checkout); //metodo para atualizar as datas
 				System.out.println("Reservation: " + reservation);
 			}
-		}	
+		}
+	
 		sc.close();
 	}
 
 }
-
 
 //https://saywebsolutions.com/blog/git-github-error-fatal-couldnt-find-remote-ref-master
